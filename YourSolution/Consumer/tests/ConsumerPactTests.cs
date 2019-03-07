@@ -2,6 +2,9 @@ using System;
 using Xunit;
 using PactNet;
 using PactNet.Mocks.MockHttpService;
+using Consumer;
+using System.Collections.Generic;
+using PactNet.Mocks.MockHttpService.Models;
 
 namespace tests
 {
@@ -15,6 +18,7 @@ namespace tests
             _mockProviderService.ClearInteractions();
             _mockProviderServiceBaseUri = fixture.MockProviderServiceBaseUri;
         }
+        
         [Fact]
         public void ItHandlesInvalidDateParam()
         {
@@ -52,10 +56,9 @@ namespace tests
                     }
                 });
 
-                var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi("lolz",_mockProviderServiceBaseUri);
+                var result = ConsumerApiClient.ValidateDateTimeUsingProviderApi("lolz",_mockProviderServiceBaseUri).GetAwaiter().GetResult();
                 var resultBodyText = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-                //Assert
                 Assert.Contains(invalidRequestMessage, resultBodyText);
         }
     }
