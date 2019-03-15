@@ -59,6 +59,12 @@ namespace tests
                 .Verify();
         }
 
+        [Fact]
+        public void TestOutput(){
+            var msg = "Test output works in Complete Solution";
+            _outputHelper.WriteLine(msg);
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
